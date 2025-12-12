@@ -1,0 +1,74 @@
+
+:root {
+  --primary-color: #0f4538; /* A deep, earthy green */
+  --accent-color: #fffe1f; /* A vibrant, electric yellow */
+  --secondary-color: #A98A66; /* A softer, complementary gold */
+  --background-color: #0C0B09; /* A deep, near-black for a luxurious feel */
+  --text-color: #f8f9fa; /* A slightly off-white for better readability */
+  --card-background: #1a1a1a; /* Dark gray for cards and surfaces */
+  --border-color: rgba(15, 69, 56, 0.4); /* Using the new dark green for borders */
+  --hover-color: #fffe1f; /* Using the new yellow for hover effects */
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/noise.png');
+  opacity: 0.05;
+  z-index: -1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vmin;
+  height: 80vmin;
+  background-image: url('./1749652443920-966c96e6-ae8f-4e61-a640-4ac1704abf1d_2.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.05;
+  z-index: -2;
+  filter: invert(1);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover-color);
+  text-shadow: 0 0 8px var(--hover-color);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+}
+
+h2, h3 {
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(169, 138, 102, 0.5);
+}
