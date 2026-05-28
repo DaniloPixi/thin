@@ -12,7 +12,15 @@
       <nav class="main-nav">
         <ul>
           <li><a href="#about">About</a></li>
-          <li><a href="/Yus_Speisekarte_11-25_Final.pdf" target="_blank">Menu</a></li>
+          <li class="dropdown-container" @mouseenter="isMenuOpen = true" @mouseleave="isMenuOpen = false">
+            <a href="#" @click.prevent>Menu</a>
+            <ul v-if="isMenuOpen" class="dropdown-menu">
+              <li><a href="/Karte-Inhalt.pdf" target="_blank">Dinner</a></li>
+              <li><a href="/IMG-20260509-WA0030.jpg" target="_blank">Lunch</a></li>
+              <li><a href="/chinese-menu.jpg" target="_blank">午餐</a></li>
+              <li><a href="/drinks-menu.pdf" target="_blank">Drinks</a></li>
+            </ul>
+          </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -21,9 +29,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import logo from '../assets/black-logo.jpg';
 
 defineEmits(['show-map']);
+
+const isMenuOpen = ref(false);
 
 const scrollToAbout = () => {
   const aboutSection = document.getElementById('about');
@@ -78,9 +89,9 @@ const scrollToAbout = () => {
 }
 
 .logo-text {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Imagine Font', serif;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: normal; /* Use the font's natural weight */
   color: #fff;
   margin: 0;
 }
@@ -96,9 +107,9 @@ const scrollToAbout = () => {
 .main-nav a {
   text-decoration: none;
   color: var(--secondary-color);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Imagine Font', serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: normal; /* Use the font's natural weight */
   position: relative;
   transition: color 0.3s ease;
 }
@@ -125,8 +136,9 @@ const scrollToAbout = () => {
 }
 
 .address-link {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Imagine Font', serif;
   font-size: 15px;
+  font-weight: normal; /* Use the font's natural weight */
   color: var(--secondary-color);
   text-decoration: none;
   transition: color 0.3s ease;
@@ -138,6 +150,29 @@ const scrollToAbout = () => {
   border-bottom-color: var(--primary-color);
 }
 
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(12, 12, 12, 0.9);
+  list-style: none;
+  padding: 10px 0;
+  margin: 10px 0 0 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li {
+  padding: 0 20px;
+}
 
 /* Mobile Styles */
 @media (max-width: 768px) {

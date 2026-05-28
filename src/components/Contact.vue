@@ -14,8 +14,9 @@
           </div>
           <div class="info-box">
             <h3>Opening Hours</h3>
-            <p>Tuesday - Thursday: 17:00 - 00:00</p>
-            <p>Friday - Saturday: 17:00 - 02:00</p>
+            <p>Tue - Thu: 11:30-14:30 | 17:00 - 23:00</p>
+            <p>Fri - Sat: 11:30-14:30 | 17:00 - 01:00</p>
+            <p>Sun: 12:30 - 17:00</p>
           </div>
           <div class="info-box">
             <h3>Contact</h3>
@@ -59,11 +60,11 @@
 
 .section-title h2 {
   font-size: 32px;
-  font-weight: bold;
+  font-weight: normal; /* Use the font's natural weight */
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
-  font-family: "Playfair Display", serif;
+  font-family: "Imagine Font", serif;
 }
 
 .section-title h2::after {
@@ -107,7 +108,8 @@
   font-size: 22px;
   color: var(--primary-color);
   margin-bottom: 15px;
-  font-family: 'Playfair Display', serif;
+  font-family: "Imagine Font", serif;
+  font-weight: normal; /* Use the font's natural weight */
   position: relative;
   display: inline-block;
   padding-bottom: 5px;

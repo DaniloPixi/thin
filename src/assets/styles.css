@@ -1,4 +1,12 @@
 
+@font-face {
+  font-family: 'Imagine Font';
+  src: url('./fonts/Imagine_Font.otf') format('opentype'),
+       url('./fonts/Imagine_Font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --primary-color: #0f4538; /* A deep, earthy green */
   --accent-color: #fffe1f; /* A vibrant, electric yellow */
@@ -65,7 +73,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
+  font-family: "Imagine Font", serif;
 }
 
 h2, h3 {

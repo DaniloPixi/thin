@@ -3,7 +3,6 @@
   <div id="app">
     <Header @show-map="openMapModal" />
     <main>
-      <Hero />
       <About />
       <Contact />
     </main>
@@ -16,7 +15,6 @@
 <script setup>
 import { ref } from 'vue';
 import Header from './components/Header.vue';
-import Hero from './components/Hero.vue';
 import About from './components/About.vue';
 import Contact from './components/Contact.vue';
 import Footer from './components/Footer.vue';
