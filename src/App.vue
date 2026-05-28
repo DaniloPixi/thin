@@ -2,6 +2,7 @@
 <template>
   <div id="app">
     <Header @show-map="openMapModal" />
+    <Hero></Hero>
     <main>
       <About />
       <Contact />
@@ -20,7 +21,7 @@ import Contact from './components/Contact.vue';
 import Footer from './components/Footer.vue';
 import FloatingButtons from './components/FloatingButtons.vue';
 import MapModal from './components/MapModal.vue';
-
+import Hero from './components/Hero.vue';
 const showMap = ref(false);
 
 const openMapModal = () => {

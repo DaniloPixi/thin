@@ -6,7 +6,7 @@
         <div class="content-column">
           <div class="inner-column">
             <figure class="image-1">
-              <img src="/images/about2.jpg" alt="A vibrant cocktail being garnished">
+              <img src="/images/heroPage.png" alt="A vibrant cocktail being garnished">
             </figure>
             <a href="https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64" target="_blank" class="book-table-btn">Book a Table</a>
           </div>

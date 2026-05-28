@@ -1,30 +1,50 @@
-
 <template>
   <header class="header">
-    <div class="header-content">
-      <div class="header-left">
-        <a href="#" @click.prevent="$emit('show-map')" class="address-link">Kettenbrückengasse 3, 1050 Wien</a>
-      </div>
-      <div class="logo-container" @click="scrollToAbout">
-        <img :src="logo" alt="Yu's Cottage Logo" class="logo" />
-        <h1 class="logo-text">Yu's Cottage</h1>
-      </div>
-      <nav class="main-nav">
+    <div class="header-inner">
+      <!-- Left: compact mark -->
+      <a href="#top" class="brand" aria-label="Yu's Cottage home">
+        <img :src="logo" alt="Yu's Cottage logo" class="brand-logo" />
+      </a>
+
+      <!-- Center: primary nav -->
+      <nav class="main-nav" aria-label="Primary navigation">
         <ul>
-          <li><a href="#about">About</a></li>
-          <li class="dropdown-container" @mouseenter="isMenuOpen = true" @mouseleave="isMenuOpen = false">
-            <a href="#" @click.prevent>Menu</a>
-            <ul v-if="isMenuOpen" class="dropdown-menu">
-              <li><a href="/Karte-Inhalt.pdf" target="_blank">Dinner</a></li>
-              <li><a href="/IMG-20260509-WA0030.jpg" target="_blank">Lunch</a></li>
-              <li><a href="/chinese-menu.jpg" target="_blank">午餐</a></li>
-              <li><a href="/drinks-menu.pdf" target="_blank">Drinks</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#cocktails">Cocktails</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reservations">Reservations</a></li>
         </ul>
       </nav>
+
+      <!-- Right: CTA -->
+      <a href="#reservations" class="cta">
+        <span>Book a Table</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <!-- Mobile toggle -->
+      <button
+        class="mobile-toggle"
+        type="button"
+        @click="isMobileOpen = !isMobileOpen"
+        :aria-expanded="isMobileOpen"
+        aria-controls="mobile-nav"
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
     </div>
+
+    <!-- Mobile menu -->
+    <nav id="mobile-nav" class="mobile-nav" :class="{ open: isMobileOpen }" aria-label="Mobile navigation">
+      <a href="#menu" @click="closeMobile">Menu</a>
+      <a href="#cocktails" @click="closeMobile">Cocktails</a>
+      <a href="#story" @click="closeMobile">Story</a>
+      <a href="#gallery" @click="closeMobile">Gallery</a>
+      <a href="#reservations" @click="closeMobile">Reservations</a>
+      <a href="#reservations" class="mobile-cta" @click="closeMobile">Book a Table ↗</a>
+    </nav>
   </header>
 </template>
 
@@ -32,15 +52,10 @@
 import { ref } from 'vue';
 import logo from '../assets/black-logo.jpg';
 
-defineEmits(['show-map']);
+const isMobileOpen = ref(false);
 
-const isMenuOpen = ref(false);
-
-const scrollToAbout = () => {
-  const aboutSection = document.getElementById('about');
-  if (aboutSection) {
-    aboutSection.scrollIntoView({ behavior: 'smooth' });
-  }
+const closeMobile = () => {
+  isMobileOpen.value = false;
 };
 </script>
 
@@ -50,157 +65,169 @@ const scrollToAbout = () => {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-  padding: 20px 40px;
-  background: rgba(12, 12, 12, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  z-index: 200;
+  background: rgba(7, 8, 10, 0.84);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(190, 172, 135, 0.18);
 }
 
-.header-content {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 60px;
-  max-width: 1400px;
+.header-inner {
+  max-width: 1320px;
   margin: 0 auto;
-}
-
-.header-left {
-  justify-self: end;
-}
-
-.main-nav {
-  justify-self: start;
-}
-
-.logo-container {
-  display: flex;
+  min-height: 82px;
+  padding: 12px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  cursor: pointer;
+  gap: 20px;
 }
 
-.logo {
-  height: 50px;
-  margin-right: 15px;
+/* Brand */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.brand-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.logo-text {
-  font-family: 'Imagine Font', serif;
-  font-size: 24px;
-  font-weight: normal; /* Use the font's natural weight */
-  color: #fff;
-  margin: 0;
+/* Desktop nav */
+.main-nav {
+  justify-self: center;
 }
-
 .main-nav ul {
   list-style: none;
+  display: flex;
+  gap: clamp(18px, 2.4vw, 42px);
   margin: 0;
   padding: 0;
-  display: flex;
-  gap: 30px;
 }
-
 .main-nav a {
   text-decoration: none;
-  color: var(--secondary-color);
-  font-family: 'Imagine Font', serif;
-  font-size: 16px;
-  font-weight: normal; /* Use the font's natural weight */
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: #e8dfc9;
+  opacity: 0.9;
   position: relative;
-  transition: color 0.3s ease;
+  transition: opacity 0.22s ease, color 0.22s ease;
 }
-
 .main-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-color);
-    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-  color: #fff;
-}
-
-.main-nav a:hover::after {
-    width: 100%;
-}
-
-.address-link {
-  font-family: 'Imagine Font', serif;
-  font-size: 15px;
-  font-weight: normal; /* Use the font's natural weight */
-  color: var(--secondary-color);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  border-bottom: 1px solid transparent;
-}
-
-.address-link:hover {
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
-}
-
-.dropdown-container {
-  position: relative;
-}
-
-.dropdown-menu {
+  content: '';
   position: absolute;
-  top: 100%;
   left: 0;
-  background-color: rgba(12, 12, 12, 0.9);
-  list-style: none;
-  padding: 10px 0;
-  margin: 10px 0 0 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
+  bottom: -8px;
+  width: 100%;
+  height: 1px;
+  background: #c5b78f;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+}
+.main-nav a:hover {
+  opacity: 1;
+  color: #fff3d5;
+}
+.main-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* CTA */
+.cta {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
   gap: 10px;
-  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: #0f1512;
+  background: #c5dbb6;
+  border-radius: 999px;
+  padding: 12px 26px;
+  border: 1px solid rgba(15, 21, 18, 0.15);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+.cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+.arrow {
+  font-size: 13px;
+  line-height: 1;
 }
 
-.dropdown-menu li {
-  padding: 0 20px;
+/* Mobile */
+.mobile-toggle {
+  display: none;
+  justify-self: end;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+}
+.mobile-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #e8dfc9;
+  margin: 4px 0;
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .header {
-    padding: 15px 20px;
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .header-inner {
+    grid-template-columns: auto auto;
+    min-height: 72px;
   }
 
-  .header-content {
-    display: flex;
-    flex-direction: column;
+  .main-nav,
+  .cta {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: grid;
     gap: 10px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    border-top: 1px solid rgba(190, 172, 135, 0.14);
+    background: rgba(7, 8, 10, 0.95);
+    transition: max-height 0.25s ease, padding 0.25s ease;
   }
 
-  .header-left {
-    order: 2; /* Move address to the bottom */
-    margin-top: 10px;
+  .mobile-nav.open {
+    max-height: 340px;
+    padding: 14px 24px 18px;
   }
 
-  .logo-container {
-    order: 1;
+  .mobile-nav a {
+    color: #e8dfc9;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
   }
 
-  .main-nav {
-    order: 1;
-  }
-  
-  .logo-text {
-    font-size: 20px;
+  .mobile-cta {
+    margin-top: 6px;
+    color: #c5dbb6 !important;
   }
 }
+
 </style>
