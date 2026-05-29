@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header ref="header" class="header">
     <div class="header-content">
       <a href="#about" class="brand" aria-label="Yu's Cottage home" @click.prevent="scrollToSection('about')">
         <img :src="logo" alt="Yu's Cottage Logo" class="brand-logo" />
@@ -37,7 +37,7 @@
               Menu
             </button>
             <ul id="menu-dropdown" v-show="isMenuOpen" class="dropdown-menu" @click="closeAllMenus">
-              <li><a href="/Karte-Inhalt.pdf" target="_blank" rel="noopener">Dinner</a></li>
+              <li><a href="/Karte-Inhalt.pdf" target="_blank" rel="noopener">Dim Sum & Tapas</a></li>
               <li><a href="/IMG-20260509-WA0030.jpg" target="_blank" rel="noopener">Lunch</a></li>
               <li><a href="/chinese-menu.jpg" target="_blank" rel="noopener">午餐</a></li>
               <li><a href="/drinks-menu.pdf" target="_blank" rel="noopener">Drinks</a></li>
@@ -47,10 +47,13 @@
             <a class="nav-link" href="/drinks-menu.pdf" target="_blank" rel="noopener" @click="closeAllMenus">Cocktails</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about" @click.prevent="scrollToSection('about')">Story</a>
+            <a class="nav-link" href="#about" @click.prevent="scrollToSection('about')">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#gallery" @click.prevent="scrollToSection('gallery', 'about')">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Contact</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Reservations</a>
@@ -69,6 +72,9 @@ const bookingUrl = 'https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300a
 const isMenuOpen = ref(false);
 const isMobileNavOpen = ref(false);
 const dropdown = ref(null);
+const header = ref(null);
+const scrollDuration = 700;
+let scrollAnimationFrame = null;
 
 const toggleMobileNav = () => {
   isMobileNavOpen.value = !isMobileNavOpen.value;
@@ -99,16 +105,60 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
+
+  if (scrollAnimationFrame) {
+    cancelAnimationFrame(scrollAnimationFrame);
+  }
 });
+
+const easeInOutCubic = (progress) => {
+  return progress < 0.5 ? 4 * progress ** 3 : 1 - ((-2 * progress + 2) ** 3) / 2;
+};
+
+const animateScrollTo = (targetPosition) => {
+  if (scrollAnimationFrame) {
+    cancelAnimationFrame(scrollAnimationFrame);
+  }
+
+  const startPosition = window.scrollY || window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  const startTime = performance.now();
+
+  const step = (currentTime) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / scrollDuration, 1);
+    const easedProgress = easeInOutCubic(progress);
+
+    window.scrollTo(0, startPosition + distance * easedProgress);
+
+    if (progress < 1) {
+      scrollAnimationFrame = requestAnimationFrame(step);
+    } else {
+      scrollAnimationFrame = null;
+    }
+  };
+
+  scrollAnimationFrame = requestAnimationFrame(step);
+};
 
 const scrollToSection = (sectionId, fallbackId) => {
   const section = document.getElementById(sectionId) || (fallbackId ? document.getElementById(fallbackId) : null);
 
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  closeAllMenus();
+
+  if (!section) {
+    return;
   }
 
-  closeAllMenus();
+  requestAnimationFrame(() => {
+    const headerOffset = header.value?.offsetHeight || 0;
+    const targetPosition = Math.max(
+      section.getBoundingClientRect().top + (window.scrollY || window.pageYOffset) - headerOffset,
+      0,
+    );
+
+    animateScrollTo(targetPosition);
+  });
 };
 </script>
 
