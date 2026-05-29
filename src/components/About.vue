@@ -6,7 +6,7 @@
         <div class="content-column">
           <div class="inner-column">
             <figure class="image-1">
-              <img src="/images/about2.jpg" alt="A vibrant cocktail being garnished">
+              <img src="/images/editedMain.png" alt="A vibrant cocktail being garnished">
             </figure>
             <a href="https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64" target="_blank" class="book-table-btn">Book a Table</a>
           </div>
@@ -56,11 +56,8 @@
     width: 115%;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 2;
     margin: 0;
 }
 
@@ -107,7 +104,6 @@
 @media (max-width: 500px) {
     .image-1 {
         width: 100%;
-        border-radius: 0;
     }
 }
 
