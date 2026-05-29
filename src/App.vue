@@ -4,6 +4,7 @@
     <Header @show-map="openMapModal" />
     <main>
       <About />
+      <ImageSlider />
       <Contact />
     </main>
     <Footer />
@@ -20,6 +21,7 @@ import Contact from './components/Contact.vue';
 import Footer from './components/Footer.vue';
 import FloatingButtons from './components/FloatingButtons.vue';
 import MapModal from './components/MapModal.vue';
+import ImageSlider from './components/ImageSlider.vue';
 
 const showMap = ref(false);
 
