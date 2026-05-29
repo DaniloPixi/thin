@@ -1,7 +1,15 @@
-
 <template>
   <div class="floating-buttons">
-    <a href="https://www.instagram.com/yuscottage" target="_blank" class="floating-button">
+    <a :href="bookingUrl" target="_blank" rel="noopener" class="floating-button" aria-label="Book a table">
+      <div class="icon-container">
+        <svg viewBox="0 0 24 24">
+          <!-- Calendar Icon SVG -->
+          <path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1Zm12 8H5v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9ZM6 8h12V7a1 1 0 0 0-1-1H7v1a1 1 0 0 1-2 0V6H5a1 1 0 0 0-1 1v1Zm2 5a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm5 0a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Zm-5 4a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z" />
+        </svg>
+      </div>
+    </a>
+
+    <a href="https://www.instagram.com/yuscottage" target="_blank" rel="noopener" class="floating-button" aria-label="Instagram">
       <div class="icon-container">
         <svg viewBox="0 0 24 24">
           <!-- Instagram Icon SVG -->
@@ -9,7 +17,8 @@
         </svg>
       </div>
     </a>
-    <a href="https://wa.me/+436701957515" target="_blank" class="floating-button">
+
+    <a href="https://wa.me/+436701957515" target="_blank" rel="noopener" class="floating-button" aria-label="WhatsApp">
       <div class="icon-container">
         <svg viewBox="0 0 16 16">
           <!-- WhatsApp Icon SVG -->
@@ -21,7 +30,7 @@
 </template>
 
 <script setup>
-// No script needed for this component
+const bookingUrl = 'https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64';
 </script>
 
 <style scoped>
@@ -72,7 +81,7 @@
 
 @media (max-width: 768px) {
   .floating-buttons {
-    bottom: 80px; /* Move buttons up on mobile */
+    bottom: 80px;
     right: 20px;
   }
 

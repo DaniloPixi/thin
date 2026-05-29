@@ -9,27 +9,34 @@
         class="nav-toggle"
         type="button"
         :aria-expanded="isMobileNavOpen"
+        aria-controls="primary-navigation"
         aria-label="Toggle navigation"
-        @click="isMobileNavOpen = !isMobileNavOpen"
+        @click="toggleMobileNav"
       >
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <nav class="main-nav" :class="{ 'is-open': isMobileNavOpen }" aria-label="Primary navigation">
+      <nav
+        id="primary-navigation"
+        class="main-nav"
+        :class="{ 'is-open': isMobileNavOpen }"
+        aria-label="Primary navigation"
+      >
         <ul class="nav-list">
           <li class="nav-item dropdown-container" ref="dropdown">
             <button
               class="nav-link nav-button"
               type="button"
               :aria-expanded="isMenuOpen"
+              aria-controls="menu-dropdown"
               aria-haspopup="true"
               @click="toggleMenu"
             >
               Menu
             </button>
-            <ul v-show="isMenuOpen" class="dropdown-menu" @click="closeAllMenus">
+            <ul id="menu-dropdown" v-show="isMenuOpen" class="dropdown-menu" @click="closeAllMenus">
               <li><a href="/Karte-Inhalt.pdf" target="_blank" rel="noopener">Dinner</a></li>
               <li><a href="/IMG-20260509-WA0030.jpg" target="_blank" rel="noopener">Lunch</a></li>
               <li><a href="/chinese-menu.jpg" target="_blank" rel="noopener">午餐</a></li>
@@ -50,11 +57,6 @@
           </li>
         </ul>
       </nav>
-
-      <a class="book-button" :href="bookingUrl" target="_blank" rel="noopener">
-        <span>Book a Table</span>
-        <span class="book-arrow" aria-hidden="true">↗</span>
-      </a>
     </div>
   </header>
 </template>
@@ -67,6 +69,14 @@ const bookingUrl = 'https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300a
 const isMenuOpen = ref(false);
 const isMobileNavOpen = ref(false);
 const dropdown = ref(null);
+
+const toggleMobileNav = () => {
+  isMobileNavOpen.value = !isMobileNavOpen.value;
+
+  if (!isMobileNavOpen.value) {
+    isMenuOpen.value = false;
+  }
+};
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -259,45 +269,6 @@ const scrollToSection = (sectionId, fallbackId) => {
   outline: none;
 }
 
-.book-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: end;
-  gap: 24px;
-  min-width: 174px;
-  min-height: 38px;
-  padding: 0 18px 0 26px;
-  border-radius: 999px;
-  background: #c9dcbc;
-  color: #101310;
-  font-family: 'Imagine Font', serif;
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: 2.4px;
-  text-transform: uppercase;
-  text-decoration: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 10px 20px rgba(0, 0, 0, 0.22);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-}
-
-.book-button:hover,
-.book-button:focus-visible {
-  color: #101310;
-  background: #e4efd9;
-  transform: translateY(-1px);
-  text-shadow: none;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 14px 26px rgba(0, 0, 0, 0.28);
-}
-
-.book-arrow {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-}
-
 .nav-toggle {
   display: none;
   width: 42px;
@@ -316,6 +287,19 @@ const scrollToSection = (sectionId, fallbackId) => {
   margin: 4px auto;
   border-radius: 2px;
   background: #f3efe2;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 @media (max-width: 980px) {
@@ -325,7 +309,15 @@ const scrollToSection = (sectionId, fallbackId) => {
 
   .header-content {
     grid-template-columns: auto 1fr auto;
-    gap: 16px;
+    grid-template-areas:
+      "brand spacer toggle"
+      "book book book"
+      "nav nav nav";
+    gap: 12px 16px;
+  }
+
+  .brand {
+    grid-area: brand;
   }
 
   .brand-logo {
@@ -334,26 +326,19 @@ const scrollToSection = (sectionId, fallbackId) => {
   }
 
   .nav-toggle {
-    display: block;
+    grid-area: toggle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     justify-self: end;
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .book-button {
-    grid-column: 3;
-    grid-row: 1;
-    min-width: auto;
-    min-height: 36px;
-    padding: 0 16px;
-    gap: 12px;
   }
 
   .main-nav {
+    grid-area: nav;
     display: none;
-    grid-column: 1 / -1;
     justify-self: stretch;
-    padding-top: 14px;
+    padding-top: 0;
   }
 
   .main-nav.is-open {
@@ -386,14 +371,13 @@ const scrollToSection = (sectionId, fallbackId) => {
 }
 
 @media (max-width: 560px) {
-  .header-content {
-    grid-template-columns: auto auto;
+  .header {
+    padding: 12px 20px;
   }
 
-  .book-button {
-    grid-column: 1 / -1;
-    justify-self: stretch;
-    width: 100%;
+  .header-content {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px 14px;
   }
 }
 </style>
