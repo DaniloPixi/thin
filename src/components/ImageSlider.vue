@@ -1,7 +1,7 @@
 <template>
   <section id="gallery" class="gallery-showcase" aria-labelledby="gallery-title">
     <div class="gallery-copy">
-      <p class="eyebrow">Yu's Cottage Gallery</p>
+    
       <h2 id="gallery-title">A gallery of moments.</h2>
       <p>
         Discover signature plates, handmade dim sum, and warm evening details from the cottage.
@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 
 .gallery-copy h2 {
   margin: 0;
-  color: #f8efe2;
+  color: #29614c;
   font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   font-weight: 300;
   font-size: clamp(2rem, 4.8vw, 3.85rem);
@@ -215,7 +215,7 @@ onBeforeUnmount(() => {
 .gallery-swiper {
   overflow: visible;
   width: 100%;
-  perspective: 72rem;
+  perspective: 54rem;
   perspective-origin: center;
   padding: clamp(1rem, 2vw, 2rem) 0 clamp(2.2rem, 4vw, 3.5rem);
 }
@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
   width: min(66vw, 27rem);
   height: clamp(15rem, 32vw, 22rem);
   opacity: 0.34;
-  transform: scale(0.82) rotateZ(-5deg) rotateY(-28deg) translateZ(-2rem);
+  transform: scale(0.8) rotateZ(-7deg) rotateY(-42deg) translateZ(-3rem);
   transform-style: preserve-3d;
   transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
   filter: blur(1.5px) saturate(0.78);
@@ -235,14 +235,14 @@ onBeforeUnmount(() => {
 
 .gallery-slide.swiper-slide-prev {
   opacity: 0.72;
-  transform: translateX(7%) scale(0.9) rotateZ(-5deg) rotateY(-46deg) rotateX(1.5deg) translateZ(-1.5rem);
+  transform: translateX(8%) scale(0.88) rotateZ(-8deg) rotateY(-52deg) rotateX(2deg) translateZ(-2rem);
   transform-origin: center;
   filter: blur(0) saturate(0.9);
 }
 
 .gallery-slide.swiper-slide-next {
   opacity: 0.72;
-  transform: translateX(-7%) scale(0.9) rotateZ(5deg) rotateY(46deg) rotateX(1.5deg) translateZ(-1.5rem);
+  transform: translateX(-8%) scale(0.88) rotateZ(8deg) rotateY(52deg) rotateX(2deg) translateZ(-2rem);
   transform-origin: center;
   filter: blur(0) saturate(0.9);
 }
@@ -337,8 +337,8 @@ onBeforeUnmount(() => {
   z-index: 3;
   color: #fff;
   text-align: center;
-  padding: 0.85rem 1rem;
-  border-radius: 1rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.85rem;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.38));
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
@@ -347,20 +347,20 @@ onBeforeUnmount(() => {
 
 .slide-caption h3 {
   margin: 0;
-  color: #f6eadb;
+  color: #78b68e;
   font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   font-weight: 300;
-  font-size: clamp(1.18rem, 2vw, 2rem);
-  line-height: 1;
+  font-size: clamp(1.05rem, 1.7vw, 1.7rem);
+  line-height: 0.95;
 }
 
 .slide-caption p {
   max-width: 17rem;
-  margin: 0.45rem auto 0;
-  color: rgba(255, 255, 255, 0.76);
+  margin: 0.28rem auto 0;
+  color: ##0c4134;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.78rem, 1.2vw, 0.95rem);
-  line-height: 1.45;
+  font-size: clamp(0.72rem, 1vw, 0.84rem);
+  line-height: 1.28;
 }
 
 .gallery-nav {
@@ -434,6 +434,7 @@ onBeforeUnmount(() => {
     right: 1.25rem;
     bottom: 1.25rem;
     left: 1.25rem;
+    padding: 0.45rem 0.75rem;
   }
 
   .slide-caption p {
