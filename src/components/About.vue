@@ -9,14 +9,17 @@
                 <span>WELCOME TO</span>
                 <h1>YU'S COTTAGE</h1>
               </div>
-              <div class="welcome-panel welcome-panel-secondary" aria-hidden="true">
+
+              <div class="welcome-panel welcome-panel-secondary">
                 <p>WHERE DIM SUM</p>
                 <p>AND COCKTAILS MEET</p>
               </div>
             </div>
+
             <figure class="image-1">
               <img src="/images/editedMain.png" alt="A vibrant cocktail being garnished">
             </figure>
+
             <a href="https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64" target="_blank" class="book-table-btn">Book a Table</a>
           </div>
         </div>
@@ -64,74 +67,72 @@
 }
 
 .welcome-copy {
-  --headline-cycle: 17s;
+  --headline-cycle: 7s;
+  --champagne: #d7b67f;
+  --champagne-soft: rgba(239, 224, 198, 0.78);
   position: relative;
   z-index: 2;
   isolation: isolate;
-  min-height: clamp(5.5rem, 11vw, 9rem);
+  min-height: clamp(6.1rem, 10.8vw, 9rem);
   margin: 0 auto 1.25rem;
   overflow: hidden;
   text-align: center;
   text-transform: uppercase;
-  animation: welcomeReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  text-rendering: geometricPrecision;
 }
 
-.welcome-panel {
-  position: absolute;
-  inset: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 0;
-  color: #c9a063;
-  font-family: 'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif;
-  font-weight: 300;
-  line-height: 0.95;
-  text-shadow:
-    0 0 12px rgba(201, 160, 99, 0.16),
-    0 10px 28px rgba(170, 94, 43, 0.12);
-  clip-path: inset(0 50% 0 50%);
-  opacity: 0;
-  will-change: opacity, transform, filter, clip-path;
-}
-
-.welcome-panel::before {
+.welcome-copy::before {
   content: '';
   position: absolute;
-  top: -0.7rem;
-  bottom: -0.7rem;
+  top: -1.1rem;
+  bottom: -0.9rem;
   left: 50%;
   width: min(28rem, 82vw);
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: center;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(201, 160, 99, 0.08),
-    rgba(232, 214, 184, 0.2),
-    rgba(201, 160, 99, 0.08),
-    transparent
-  );
-  opacity: 0;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at center, rgba(215, 182, 127, 0.12), rgba(215, 182, 127, 0.035) 42%, transparent 72%),
+    linear-gradient(90deg, transparent, rgba(239, 224, 198, 0.045), transparent);
+  opacity: 0.95;
   pointer-events: none;
   mix-blend-mode: screen;
 }
 
-.welcome-panel-primary {
-  animation: welcomePanelPrimary var(--headline-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+.welcome-copy::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(10.5rem, 38vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(215, 182, 127, 0.16),
+    rgba(239, 224, 198, 0.6),
+    rgba(215, 182, 127, 0.16),
+    transparent
+  );
+  box-shadow: 0 0 10px rgba(215, 182, 127, 0.14);
 }
 
-.welcome-panel-secondary {
-  animation: welcomePanelSecondary var(--headline-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-
-.welcome-panel-primary::before {
-  animation: welcomeAperturePrimary var(--headline-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-
-.welcome-panel-secondary::before {
-  animation: welcomeApertureSecondary var(--headline-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+.welcome-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--champagne);
+  font-family: 'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif;
+  font-weight: 300;
+  line-height: 0.96;
+  text-shadow:
+    0 0 10px rgba(215, 182, 127, 0.12),
+    0 14px 34px rgba(0, 0, 0, 0.42);
+  will-change: opacity, transform, filter;
 }
 
 .welcome-panel span,
@@ -144,139 +145,74 @@
 
 .welcome-panel span {
   margin-bottom: 0.55rem;
-  font-size: clamp(0.75rem, 1vw, 0.95rem);
-  letter-spacing: clamp(0.35em, 0.85vw, 0.5em);
-  opacity: 0.82;
+  font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+  letter-spacing: clamp(0.34em, 0.78vw, 0.46em);
+  color: var(--champagne-soft);
 }
 
 .welcome-panel h1 {
-  font-size: clamp(1.85rem, 5.4vw, 4.75rem);
-  letter-spacing: clamp(0.12em, 1vw, 0.22em);
+  font-size: clamp(1.8rem, 5.15vw, 4.45rem);
+  letter-spacing: clamp(0.12em, 0.9vw, 0.2em);
 }
 
 .welcome-panel-secondary {
-  padding-top: clamp(0.3rem, 1.1vw, 0.9rem);
+  padding-top: clamp(0.35rem, 1.15vw, 0.95rem);
 }
 
 .welcome-panel-secondary p {
-  font-size: clamp(1.15rem, 3.15vw, 2.75rem);
-  letter-spacing: clamp(0.12em, 0.75vw, 0.2em);
+  font-size: clamp(1.12rem, 2.9vw, 2.55rem);
+  letter-spacing: clamp(0.13em, 0.68vw, 0.19em);
 }
 
 .welcome-panel-secondary p + p {
   margin-top: 0.45rem;
 }
 
-.welcome-copy::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: min(12rem, 42vw);
-  height: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(201, 160, 99, 0.26),
-    rgba(232, 214, 184, 0.82),
-    rgba(201, 160, 99, 0.26),
-    transparent
-  );
-  box-shadow: 0 0 12px rgba(201, 160, 99, 0.34);
+.welcome-panel-primary {
+  animation: welcomeTitleCycle var(--headline-cycle) ease-in-out infinite;
 }
 
-@keyframes welcomeReveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-    filter: blur(8px);
+.welcome-panel-secondary {
+  animation: welcomeTaglineCycle var(--headline-cycle) ease-in-out infinite;
+}
+
+@keyframes welcomeTitleCycle {
+  0%, 33% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 
-  to {
+  44%, 88% {
+    opacity: 0;
+    transform: translateY(-0.24rem);
+    filter: blur(0.08rem);
+  }
+
+  100% {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
   }
 }
 
-@keyframes welcomePanelPrimary {
-  0%, 4% {
-    clip-path: inset(0 50% 0 50%);
+@keyframes welcomeTaglineCycle {
+  0%, 42% {
     opacity: 0;
-    transform: translateY(0.35rem) scale(0.985);
-    filter: blur(0.35rem);
+    transform: translateY(0.24rem);
+    filter: blur(0.08rem);
   }
 
-  12%, 23% {
-    clip-path: inset(0 0 0 0);
+  52%, 84% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     filter: blur(0);
   }
 
-  31%, 100% {
-    clip-path: inset(0 50% 0 50%);
+  94%, 100% {
     opacity: 0;
-    transform: translateY(-0.3rem) scale(0.99);
-    filter: blur(0.28rem);
-  }
-}
-
-@keyframes welcomePanelSecondary {
-  0%, 30% {
-    clip-path: inset(0 50% 0 50%);
-    opacity: 0;
-    transform: translateY(0.35rem) scale(0.985);
-    filter: blur(0.35rem);
-  }
-
-  39%, 96% {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-
-  100% {
-    clip-path: inset(0 50% 0 50%);
-    opacity: 0;
-    transform: translateY(-0.3rem) scale(0.99);
-    filter: blur(0.28rem);
-  }
-}
-
-@keyframes welcomeAperturePrimary {
-  0%, 4%, 31%, 100% {
-    opacity: 0;
-    transform: translateX(-50%) scaleX(0);
-  }
-
-  10%, 22% {
-    opacity: 0.58;
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  27% {
-    opacity: 0;
-    transform: translateX(-50%) scaleX(0.18);
-  }
-}
-
-@keyframes welcomeApertureSecondary {
-  0%, 30%, 100% {
-    opacity: 0;
-    transform: translateX(-50%) scaleX(0);
-  }
-
-  37%, 91% {
-    opacity: 0.46;
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  96% {
-    opacity: 0;
-    transform: translateX(-50%) scaleX(0.18);
+    transform: translateY(-0.22rem);
+    filter: blur(0.08rem);
   }
 }
 
