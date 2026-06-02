@@ -37,10 +37,12 @@
       </div>
 
       <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous gallery image">
-        <span aria-hidden="true">‹</span>
+        <span class="gallery-nav-orbit" aria-hidden="true"></span>
+        <span class="gallery-nav-icon" aria-hidden="true"></span>
       </button>
       <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next gallery image">
-        <span aria-hidden="true">›</span>
+        <span class="gallery-nav-orbit" aria-hidden="true"></span>
+        <span class="gallery-nav-icon" aria-hidden="true"></span>
       </button>
     </div>
   </section>
@@ -309,7 +311,6 @@ onBeforeUnmount(() => {
   width: clamp(14rem, 34vw, 32rem);
   height: clamp(34rem, 72vw, 62rem);
   border-radius: 50% 50% 48% 52%;
-
   opacity: 0;
   filter: blur(54px);
   transform: translate(-50%, -50%) scaleY(0.72) scaleX(0.86);
@@ -633,59 +634,125 @@ onBeforeUnmount(() => {
 }
 
 .gallery-nav {
+  --nav-size: 3.45rem;
+  --nav-arrow-offset: 0.12rem;
+
   position: absolute;
   top: 50%;
   z-index: 6;
   display: grid;
   place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border: 1px solid rgba(230, 192, 133, 0.28);
+  width: var(--nav-size);
+  height: var(--nav-size);
+  border: 0;
   border-radius: 50%;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-    rgba(0, 0, 0, 0.38);
-  color: #f7ead8;
+    radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.16), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018) 48%, rgba(0, 0, 0, 0.16)),
+    rgba(5, 8, 7, 0.46);
+  color: #fff4df;
   cursor: pointer;
+  isolation: isolate;
   transform: translateY(-50%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 1rem 2.4rem rgba(0, 0, 0, 0.42),
+    0 0 1.7rem rgba(230, 192, 133, 0.09),
+    inset 0 0 0 1px rgba(255, 244, 220, 0.1),
+    inset 0.18rem 0.18rem 0.75rem rgba(255, 255, 255, 0.045),
+    inset -0.35rem -0.4rem 1rem rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   transition:
-    background 260ms ease,
-    border-color 260ms ease,
-    color 260ms ease,
-    transform 260ms var(--soft-ease);
+    background 460ms ease,
+    box-shadow 520ms ease,
+    color 320ms ease,
+    filter 520ms ease,
+    transform 520ms var(--soft-ease);
 }
 
-.gallery-nav::before {
+.gallery-nav-orbit {
+  position: absolute;
+  inset: -0.42rem;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    conic-gradient(
+      from 214deg,
+      transparent 0 10%,
+      rgba(255, 244, 220, 0.95) 13%,
+      rgba(230, 192, 133, 0.78) 22%,
+      rgba(164, 208, 173, 0.34) 31%,
+      transparent 43% 100%
+    );
+  -webkit-mask:
+    radial-gradient(
+      farthest-side,
+      transparent calc(100% - 0.12rem),
+      #000 calc(100% - 0.1rem),
+      #000 calc(100% - 0.015rem),
+      transparent 100%
+    );
+  mask:
+    radial-gradient(
+      farthest-side,
+      transparent calc(100% - 0.12rem),
+      #000 calc(100% - 0.1rem),
+      #000 calc(100% - 0.015rem),
+      transparent 100%
+    );
+  opacity: 0.72;
+  filter:
+    blur(0.35px)
+    drop-shadow(0 0 0.55rem rgba(230, 192, 133, 0.22));
+  transform: rotate(-18deg) scale(0.96);
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+}
+
+.gallery-nav::after {
   content: '';
   position: absolute;
-  inset: -0.38rem;
-  border: 1px solid rgba(230, 192, 133, 0.18);
+  inset: 0.38rem;
+  z-index: -1;
   border-radius: inherit;
-  opacity: 0;
-  transform: scale(0.82);
+  background:
+    linear-gradient(135deg, rgba(255, 244, 220, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 72%, rgba(164, 208, 173, 0.12), transparent 56%);
+  box-shadow:
+    inset 0 0 0 1px rgba(230, 192, 133, 0.14),
+    inset 0 0 1rem rgba(255, 244, 220, 0.035);
+  opacity: 0.9;
   transition:
-    opacity 300ms ease,
-    transform 300ms var(--soft-ease);
+    opacity 460ms ease,
+    transform 640ms var(--soft-ease);
   pointer-events: none;
 }
 
 .gallery-nav:hover,
 .gallery-nav:focus-visible {
-  border-color: rgba(230, 192, 133, 0.78);
-  background:
-    linear-gradient(135deg, rgba(230, 192, 133, 0.2), rgba(164, 208, 173, 0.08)),
-    rgba(0, 0, 0, 0.46);
-  color: #fff8ea;
+  color: #fffaf0;
   outline: none;
-  transform: translateY(-50%) scale(1.08);
+  filter: saturate(1.08) brightness(1.08);
+  transform: translateY(-50%) scale(1.045);
+  box-shadow:
+    0 1.2rem 2.8rem rgba(0, 0, 0, 0.46),
+    0 0 2.35rem rgba(230, 192, 133, 0.18),
+    0 0 0 1px rgba(255, 244, 220, 0.12),
+    inset 0 0 0 1px rgba(255, 244, 220, 0.16),
+    inset 0.18rem 0.18rem 0.75rem rgba(255, 255, 255, 0.07),
+    inset -0.35rem -0.4rem 1rem rgba(0, 0, 0, 0.32);
 }
 
-.gallery-nav:hover::before,
-.gallery-nav:focus-visible::before {
+.gallery-nav:hover .gallery-nav-orbit,
+.gallery-nav:focus-visible .gallery-nav-orbit {
+  animation: gallery-nav-orbit-sweep 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gallery-nav:hover::after,
+.gallery-nav:focus-visible::after {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(0.94);
 }
 
 .gallery-nav-prev {
@@ -696,11 +763,70 @@ onBeforeUnmount(() => {
   right: max(1rem, calc((100vw - 112rem) / 2 + 1rem));
 }
 
-.gallery-nav span {
-  font-size: 2rem;
-  font-weight: 200;
-  line-height: 1;
-  transform: translateY(-0.08rem);
+.gallery-nav-icon {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 0.68rem;
+  height: 0.68rem;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  filter:
+    drop-shadow(0 0 0.3rem rgba(255, 244, 220, 0.28))
+    drop-shadow(0 0 0.65rem rgba(230, 192, 133, 0.18));
+  transition:
+    filter 320ms ease,
+    transform 460ms var(--soft-ease);
+}
+
+.gallery-nav-prev .gallery-nav-icon {
+  transform: translateX(var(--nav-arrow-offset)) rotate(-135deg);
+}
+
+.gallery-nav-next .gallery-nav-icon {
+  transform: translateX(calc(var(--nav-arrow-offset) * -1)) rotate(45deg);
+}
+
+.gallery-nav-prev:hover .gallery-nav-icon,
+.gallery-nav-prev:focus-visible .gallery-nav-icon {
+  transform: translateX(calc(var(--nav-arrow-offset) - 0.12rem)) rotate(-135deg);
+}
+
+.gallery-nav-next:hover .gallery-nav-icon,
+.gallery-nav-next:focus-visible .gallery-nav-icon {
+  transform: translateX(calc((var(--nav-arrow-offset) * -1) + 0.12rem)) rotate(45deg);
+}
+
+.gallery-nav:hover .gallery-nav-icon,
+.gallery-nav:focus-visible .gallery-nav-icon {
+  filter:
+    drop-shadow(0 0 0.42rem rgba(255, 244, 220, 0.45))
+    drop-shadow(0 0 0.9rem rgba(230, 192, 133, 0.28));
+}
+
+.gallery-nav.swiper-button-disabled {
+  opacity: 0.42;
+  cursor: default;
+  pointer-events: none;
+}
+
+@keyframes gallery-nav-orbit-sweep {
+  0% {
+    opacity: 0.72;
+    filter:
+      blur(0.35px)
+      drop-shadow(0 0 0.55rem rgba(230, 192, 133, 0.22));
+    transform: rotate(-18deg) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    filter:
+      blur(0.15px)
+      drop-shadow(0 0 0.85rem rgba(230, 192, 133, 0.34))
+      drop-shadow(0 0 1.35rem rgba(255, 244, 220, 0.16));
+    transform: rotate(142deg) scale(1);
+  }
 }
 
 @keyframes gallery-photo-enter-left {
@@ -876,24 +1002,24 @@ onBeforeUnmount(() => {
   }
 
   .gallery-nav {
+    --nav-size: 2.9rem;
+
     top: auto;
     bottom: 0.15rem;
-    width: 2.75rem;
-    height: 2.75rem;
     transform: none;
   }
 
   .gallery-nav:hover,
   .gallery-nav:focus-visible {
-    transform: scale(1.06);
+    transform: scale(1.045);
   }
 
   .gallery-nav-prev {
-    left: calc(50% - 3.4rem);
+    left: calc(50% - 3.55rem);
   }
 
   .gallery-nav-next {
-    right: calc(50% - 3.4rem);
+    right: calc(50% - 3.55rem);
   }
 }
 
@@ -941,6 +1067,10 @@ onBeforeUnmount(() => {
   .slide-caption h3,
   .slide-caption p,
   .slide-meta,
+  .gallery-nav,
+  .gallery-nav::after,
+  .gallery-nav-orbit,
+  .gallery-nav-icon,
   .gallery-slide.swiper-slide-active .image-frame,
   .gallery-slide.swiper-slide-active .image-frame img,
   .gallery-slide.swiper-slide-active .image-frame::before,
@@ -962,7 +1092,6 @@ onBeforeUnmount(() => {
     opacity: 1;
     transform: none;
     filter: none;
-    
   }
 }
 </style>
