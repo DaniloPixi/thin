@@ -135,11 +135,6 @@ onMounted(() => {
         opacity: 0.34
       }
     },
-    autoplay: {
-      delay: 5400,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true
-    },
     keyboard: {
       enabled: true
     },
@@ -177,7 +172,7 @@ onBeforeUnmount(() => {
   padding: clamp(3.35rem, 6.8vw, 5.8rem) 0 clamp(4rem, 7vw, 6rem);
   background:
     radial-gradient(ellipse at 34% 45%, rgba(255, 244, 220, 0.1), transparent 34rem),
-    radial-gradient(ellipse at 34% 55%, rgba(230, 192, 133, 0.12), transparent 38rem),
+    radial-gradient(ellipse at 34% 55%, rgba(231, 140, 3, 0.12), transparent 38rem),
     radial-gradient(ellipse at 50% 43%, rgba(159, 197, 166, 0.12), transparent 30rem),
     radial-gradient(circle at 20% 20%, rgba(230, 192, 133, 0.08), transparent 18rem),
     #080908;
@@ -246,6 +241,10 @@ onBeforeUnmount(() => {
 .gallery-stage {
   --photo-enter-x: -48vw;
   --caption-enter-x: -48vw;
+  --caption-panel-delay: 2000ms;
+  --caption-title-delay: 2180ms;
+  --caption-copy-delay: 2320ms;
+  --caption-meta-delay: 2460ms;
   --premium-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --soft-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -310,10 +309,7 @@ onBeforeUnmount(() => {
   width: clamp(14rem, 34vw, 32rem);
   height: clamp(34rem, 72vw, 62rem);
   border-radius: 50% 50% 48% 52%;
-  background:
-    radial-gradient(ellipse at 50% 18%, rgba(255, 244, 220, 0.22), transparent 24%),
-    radial-gradient(ellipse at 52% 48%, rgba(230, 192, 133, 0.26), transparent 48%),
-    radial-gradient(ellipse at 48% 78%, rgba(164, 208, 173, 0.18), transparent 72%);
+
   opacity: 0;
   filter: blur(54px);
   transform: translate(-50%, -50%) scaleY(0.72) scaleX(0.86);
@@ -415,10 +411,6 @@ onBeforeUnmount(() => {
   z-index: -1;
   border-radius: 52% 48% 50% 50%;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 16%, rgba(255, 244, 220, 0.28), transparent 25%),
-    radial-gradient(ellipse at 52% 50%, rgba(230, 192, 133, 0.28), transparent 50%),
-    radial-gradient(ellipse at 50% 82%, rgba(164, 208, 173, 0.16), transparent 74%);
   opacity: 0;
   filter: blur(38px);
   transform: scaleY(0.72) scaleX(0.9);
@@ -548,25 +540,27 @@ onBeforeUnmount(() => {
   width: min(100%, 24rem);
   color: #fff;
   padding: clamp(1.15rem, 2.5vw, 1.65rem);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 1.3rem;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035)),
-    linear-gradient(180deg, rgba(7, 12, 10, 0.32), rgba(7, 12, 10, 0.68));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.045) 42%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(90deg, rgba(7, 12, 10, 0.72) 0%, rgba(7, 12, 10, 0.48) 48%, rgba(7, 12, 10, 0.18) 78%, rgba(7, 12, 10, 0) 100%);
   box-shadow:
-    0 1.3rem 3.2rem rgba(0, 0, 0, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 1.3rem 3.2rem rgba(0, 0, 0, 0.28),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   text-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.9);
   opacity: 0;
-  transform: translate3d(var(--caption-enter-x), 0.9rem, 0) scale(0.74) rotateZ(-8deg);
-  filter: blur(18px) saturate(0.6) brightness(0.7);
+  transform: translate3d(-1.2rem, 0.9rem, 0) scale(0.96);
+  filter: blur(14px) saturate(0.82) brightness(0.78);
   will-change: opacity, transform, filter;
 }
 
 .gallery-slide.swiper-slide-active .slide-caption {
-  animation: gallery-caption-enter-left 2150ms var(--premium-ease) 900ms both;
+  animation: gallery-caption-enter-left 950ms var(--premium-ease) var(--caption-panel-delay) both;
 }
 
 .slide-caption h3 {
@@ -578,7 +572,7 @@ onBeforeUnmount(() => {
   line-height: 0.92;
   text-wrap: balance;
   opacity: 0;
-  transform: translate3d(1.8rem, 0.2rem, 0);
+  transform: translate3d(0, 0.65rem, 0);
   will-change: opacity, transform;
 }
 
@@ -590,16 +584,16 @@ onBeforeUnmount(() => {
   font-size: clamp(0.82rem, 1vw, 0.95rem);
   line-height: 1.55;
   opacity: 0;
-  transform: translate3d(1.8rem, 0.2rem, 0);
+  transform: translate3d(0, 0.65rem, 0);
   will-change: opacity, transform;
 }
 
 .gallery-slide.swiper-slide-active .slide-caption h3 {
-  animation: gallery-caption-text-enter 700ms var(--premium-ease) 1320ms both;
+  animation: gallery-caption-text-enter 650ms var(--premium-ease) var(--caption-title-delay) both;
 }
 
 .gallery-slide.swiper-slide-active .slide-caption p {
-  animation: gallery-caption-text-enter 700ms var(--premium-ease) 1440ms both;
+  animation: gallery-caption-text-enter 650ms var(--premium-ease) var(--caption-copy-delay) both;
 }
 
 .slide-meta {
@@ -619,7 +613,7 @@ onBeforeUnmount(() => {
 }
 
 .gallery-slide.swiper-slide-active .slide-meta {
-  animation: gallery-caption-text-enter 700ms var(--premium-ease) 1560ms both;
+  animation: gallery-caption-text-enter 650ms var(--premium-ease) var(--caption-meta-delay) both;
 }
 
 .slide-progress {
@@ -732,19 +726,19 @@ onBeforeUnmount(() => {
 @keyframes gallery-caption-enter-left {
   0% {
     opacity: 0;
-    transform: translate3d(var(--caption-enter-x), 0.9rem, 0) scale(0.74) rotateZ(-8deg);
-    filter: blur(18px) saturate(0.6) brightness(0.7);
+    transform: translate3d(-1.2rem, 0.9rem, 0) scale(0.96);
+    filter: blur(14px) saturate(0.82) brightness(0.78);
   }
 
-  52% {
+  68% {
     opacity: 1;
-    transform: translate3d(1.8rem, 0, 0) scale(1.055) rotateZ(1.5deg);
-    filter: blur(0) saturate(1.05) brightness(1.04);
+    transform: translate3d(0.15rem, -0.05rem, 0) scale(1.012);
+    filter: blur(1.5px) saturate(1.03) brightness(1.02);
   }
 
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg);
+    transform: translate3d(0, 0, 0) scale(1);
     filter: blur(0) saturate(1) brightness(1);
   }
 }
@@ -764,7 +758,7 @@ onBeforeUnmount(() => {
 @keyframes gallery-caption-text-enter {
   0% {
     opacity: 0;
-    transform: translate3d(1.8rem, 0.2rem, 0);
+    transform: translate3d(0, 0.65rem, 0);
   }
 
   100% {
