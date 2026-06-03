@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <Header @show-map="openMapModal" />
@@ -61,6 +60,12 @@ body {
 
 main {
   flex-grow: 1;
-  padding-top: 80px; /* Adjust based on header height */
+  padding-top: 128px; /* Keeps content clear of the two-line fixed navbar. */
+}
+
+@media (max-width: 980px) {
+  main {
+    padding-top: 78px;
+  }
 }
 </style>

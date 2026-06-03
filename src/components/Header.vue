@@ -47,6 +47,12 @@
             <a class="nav-link" href="/drinks-menu.pdf" target="_blank" rel="noopener" @click="closeAllMenus">Cocktails</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#specials" @click.prevent="scrollToSection('specials', 'contact')">Specials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events" @click.prevent="scrollToSection('events', 'contact')">Events</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#about" @click.prevent="scrollToSection('about')">About</a>
           </li>
           <li class="nav-item">
@@ -195,9 +201,9 @@ const scrollToSection = (sectionId, fallbackId) => {
 .header-content {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(360px, 1fr) auto;
+  grid-template-columns: auto minmax(520px, 1fr);
   align-items: center;
-  gap: clamp(28px, 5vw, 76px);
+  gap: clamp(30px, 5vw, 82px);
   max-width: 1320px;
   margin: 0 auto;
 }
@@ -230,9 +236,12 @@ const scrollToSection = (sectionId, fallbackId) => {
 }
 
 .nav-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
   align-items: center;
-  gap: clamp(28px, 4.8vw, 72px);
+  justify-content: center;
+  row-gap: 16px;
+  column-gap: clamp(34px, 4.4vw, 72px);
 }
 
 .nav-item {
@@ -396,9 +405,10 @@ const scrollToSection = (sectionId, fallbackId) => {
   }
 
   .nav-list {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 6px;
+    gap: 10px;
     padding: 14px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
