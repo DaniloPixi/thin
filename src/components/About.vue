@@ -1,5 +1,8 @@
 <template>
   <section id="about" class="about-section">
+    <img class="motif motif-hero-diagonal" :src="heroDiagonal" alt="" aria-hidden="true">
+    <img class="motif motif-hero-underline" :src="heroUnderline" alt="" aria-hidden="true">
+    <img class="motif motif-section-diagonal" :src="sectionDiagonal" alt="" aria-hidden="true">
     <div class="container">
       <div class="row">
         <div class="content-column">
@@ -47,7 +50,9 @@
 </template>
 
 <script setup>
-// No script needed for this component
+import heroDiagonal from '../assets/svg/brush-hero-diagonal.svg';
+import heroUnderline from '../assets/svg/brush-hero-underline.svg';
+import sectionDiagonal from '../assets/svg/brush-section-diagonal.svg';
 </script>
 
 <style scoped>
@@ -57,11 +62,52 @@
     position: relative;
     padding: 120px 0 80px 0;
     padding: 3.125rem 0 5rem;
-    background: #0c0c0c;
-    overflow-x: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(circle at 18% 13%, rgba(184, 215, 184, 0.08), transparent 19rem),
+      radial-gradient(circle at 84% 38%, rgba(230, 192, 133, 0.08), transparent 22rem),
+      #0c0c0c;
+    overflow: hidden;
+}
+
+.motif {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: screen;
+}
+
+.motif-hero-diagonal {
+  top: clamp(1rem, 4vw, 3.6rem);
+  right: max(-2rem, calc((100vw - 1180px) / 2 - 5rem));
+  width: clamp(8rem, 18vw, 15rem);
+  opacity: 0.48;
+  transform: rotate(8deg);
+  filter: drop-shadow(0 0 28px rgba(0, 0, 0, 0));
+}
+
+.motif-hero-underline {
+  top: clamp(8.25rem, 17vw, 13.5rem);
+  left: 50%;
+  width: clamp(13rem, 34vw, 22rem);
+  opacity: 0.23;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 18px rgba(230, 192, 133, 0.12));
+}
+
+.motif-section-diagonal {
+  left: max(-2.5rem, calc((100vw - 1180px) / 2 - 6rem));
+  bottom: clamp(6rem, 12vw, 11rem);
+  width: clamp(9rem, 19vw, 16.5rem);
+  opacity: 0.2;
+  transform: rotate(-10deg);
+  filter: drop-shadow(0 0 26px rgba(184, 215, 184, 0.12));
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
@@ -362,6 +408,25 @@
 }
 
 @media (max-width: 768px) {
+    .motif-hero-diagonal {
+        width: clamp(6rem, 28vw, 9rem);
+        right: -2.2rem;
+        opacity: 0.18;
+    }
+
+    .motif-hero-underline {
+        top: 7.4rem;
+        width: min(70vw, 16rem);
+        opacity: 0.16;
+    }
+
+    .motif-section-diagonal {
+        left: -3.5rem;
+        bottom: 3rem;
+        width: 11rem;
+        opacity: 0.13;
+    }
+
     .welcome-copy {
         margin-bottom: 6px;
     }

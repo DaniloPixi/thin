@@ -1,6 +1,8 @@
 
 <template>
   <section id="contact" class="contact-section">
+    <img class="contact-motif contact-motif-block" :src="distressedBlock" alt="" aria-hidden="true">
+    <img class="contact-motif contact-motif-diagonal" :src="sectionDiagonal" alt="" aria-hidden="true">
     <div class="container">
       <div class="section-title">
         <h2>Contact & Hours</h2>
@@ -30,16 +32,48 @@
 </template>
 
 <script setup>
-// No script needed for this component
+import distressedBlock from '../assets/svg/brush-footer-distressed-block.svg';
+import sectionDiagonal from '../assets/svg/brush-section-diagonal.svg';
 </script>
 
 <style scoped>
 .contact-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 100px 0;
-  background: var(--background-color);
+  background:
+    radial-gradient(circle at 78% 28%, rgba(184, 215, 184, 0.07), transparent 18rem),
+    var(--background-color);
+}
+
+.contact-motif {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: screen;
+}
+
+.contact-motif-block {
+  top: clamp(2rem, 6vw, 4.5rem);
+  right: max(1rem, calc((100vw - 1040px) / 2));
+  width: clamp(7rem, 17vw, 12rem);
+  opacity: 0.18;
+  transform: rotate(7deg);
+}
+
+.contact-motif-diagonal {
+  bottom: clamp(1rem, 5vw, 3.5rem);
+  left: max(-2rem, calc((100vw - 1040px) / 2 - 2rem));
+  width: clamp(8rem, 18vw, 15rem);
+  opacity: 0.14;
+  transform: rotate(-9deg);
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
@@ -135,6 +169,18 @@
 }
 
 @media (max-width: 768px) {
+  .contact-motif-block {
+    right: -2rem;
+    width: 8rem;
+    opacity: 0.12;
+  }
+
+  .contact-motif-diagonal {
+    left: -4rem;
+    width: 10rem;
+    opacity: 0.1;
+  }
+
   .contact-info {
     max-width: 100%;
   }

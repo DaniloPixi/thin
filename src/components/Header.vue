@@ -1,5 +1,7 @@
 <template>
   <header ref="header" class="header">
+    <img class="navbar-motif navbar-motif-logo" :src="heroDiagonal" alt="" aria-hidden="true">
+    <img class="navbar-motif navbar-motif-edge" :src="footerArc" alt="" aria-hidden="true">
     <div class="header-content">
       <a href="#about" class="brand" aria-label="Yu's Cottage home" @click.prevent="scrollToSection('about')">
         <img :src="logo" alt="Yu's Cottage Logo" class="brand-logo" />
@@ -73,6 +75,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import logo from '../assets/black-logo3.png';
+import heroDiagonal from '../assets/svg/brush-hero-diagonal.svg';
+import footerArc from '../assets/svg/brush-footer-arc.svg';
 
 const bookingUrl = 'https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64';
 const isMenuOpen = ref(false);
@@ -176,6 +180,8 @@ const scrollToSection = (sectionId, fallbackId) => {
   width: 100%;
   z-index: 100;
   box-sizing: border-box;
+  isolation: isolate;
+  overflow: hidden;
   padding: 18px 7.2vw;
   background:
     radial-gradient(circle at 0% 50%, rgba(0, 0, 0, 0.18), transparent 13%),
@@ -189,6 +195,7 @@ const scrollToSection = (sectionId, fallbackId) => {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   opacity: 0.18;
   background-image:
@@ -198,8 +205,34 @@ const scrollToSection = (sectionId, fallbackId) => {
   mask-image: linear-gradient(90deg, #000, transparent 18%, transparent 82%, #000);
 }
 
+.navbar-motif {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 18px rgba(184, 215, 184, 0.14));
+}
+
+.navbar-motif-logo {
+  top: 50%;
+  left: clamp(1.1rem, 5.4vw, 5.9rem);
+  width: clamp(5.3rem, 8vw, 7.7rem);
+  opacity: 0.18;
+  transform: translate(-18%, -50%) rotate(-12deg);
+}
+
+.navbar-motif-edge {
+  top: 50%;
+  right: clamp(0.75rem, 2.2vw, 2.3rem);
+  width: clamp(4.6rem, 6.5vw, 6.8rem);
+  opacity: 0.14;
+  transform: translateY(-50%) rotate(18deg);
+}
+
 .header-content {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: auto minmax(520px, 1fr);
   align-items: center;
@@ -366,6 +399,18 @@ const scrollToSection = (sectionId, fallbackId) => {
     padding: 14px 22px;
   }
 
+  .navbar-motif-logo {
+    left: 1.35rem;
+    width: 5.25rem;
+    opacity: 0.13;
+  }
+
+  .navbar-motif-edge {
+    right: 0.75rem;
+    width: 4.8rem;
+    opacity: 0.1;
+  }
+
   .header-content {
     grid-template-columns: auto 1fr auto;
     grid-template-areas:
@@ -433,6 +478,11 @@ const scrollToSection = (sectionId, fallbackId) => {
 @media (max-width: 560px) {
   .header {
     padding: 12px 20px;
+  }
+
+  .navbar-motif-edge {
+    opacity: 0.07;
+    transform: translate(28%, -50%) rotate(18deg);
   }
 
   .header-content {
