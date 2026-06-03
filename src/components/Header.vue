@@ -27,44 +27,52 @@
         aria-label="Primary navigation"
       >
         <ul class="nav-list">
-          <li class="nav-item dropdown-container" ref="dropdown">
-            <button
-              class="nav-link nav-button"
-              type="button"
-              :aria-expanded="isMenuOpen"
-              aria-controls="menu-dropdown"
-              aria-haspopup="true"
-              @click="toggleMenu"
-            >
-              Menu
-            </button>
-            <ul id="menu-dropdown" v-show="isMenuOpen" class="dropdown-menu" @click="closeAllMenus">
-              <li><a href="/Karte-Inhalt.pdf" target="_blank" rel="noopener">Dim Sum & Tapas</a></li>
-              <li><a href="/IMG-20260509-WA0030.jpg" target="_blank" rel="noopener">Lunch</a></li>
-              <li><a href="/chinese-menu.jpg" target="_blank" rel="noopener">午餐</a></li>
-              <li><a href="/drinks-menu.pdf" target="_blank" rel="noopener">Drinks</a></li>
+          <li class="nav-row nav-row--top">
+            <ul class="nav-row-list" aria-label="Primary navigation first row">
+              <li class="nav-item dropdown-container" ref="dropdown">
+                <button
+                  class="nav-link nav-button"
+                  type="button"
+                  :aria-expanded="isMenuOpen"
+                  aria-controls="menu-dropdown"
+                  aria-haspopup="true"
+                  @click="toggleMenu"
+                >
+                  Menu
+                </button>
+                <ul id="menu-dropdown" v-show="isMenuOpen" class="dropdown-menu" @click="closeAllMenus">
+                  <li><a href="/Karte-Inhalt.pdf" target="_blank" rel="noopener">Dim Sum & Tapas</a></li>
+                  <li><a href="/IMG-20260509-WA0030.jpg" target="_blank" rel="noopener">Lunch</a></li>
+                  <li><a href="/chinese-menu.jpg" target="_blank" rel="noopener">午餐</a></li>
+                  <li><a href="/drinks-menu.pdf" target="_blank" rel="noopener">Drinks</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/drinks-menu.pdf" target="_blank" rel="noopener" @click="closeAllMenus">Cocktails</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#gallery" @click.prevent="scrollToSection('gallery', 'about')">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#specials" @click.prevent="scrollToSection('specials', 'contact')">Specials</a>
+              </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/drinks-menu.pdf" target="_blank" rel="noopener" @click="closeAllMenus">Cocktails</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#specials" @click.prevent="scrollToSection('specials', 'contact')">Specials</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#events" @click.prevent="scrollToSection('events', 'contact')">Events</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about" @click.prevent="scrollToSection('about')">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#gallery" @click.prevent="scrollToSection('gallery', 'about')">Gallery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Reservations</a>
+          <li class="nav-row nav-row--bottom">
+            <ul class="nav-row-list" aria-label="Primary navigation second row">
+              <li class="nav-item">
+                <a class="nav-link" href="#about" @click.prevent="scrollToSection('about')">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact" @click.prevent="scrollToSection('contact')">Reservations</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#events" @click.prevent="scrollToSection('events', 'contact')">Events</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -258,10 +266,15 @@ const scrollToSection = (sectionId, fallbackId) => {
 }
 
 .main-nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   justify-self: center;
+  transform: translate(-50%, -50%);
 }
 
 .nav-list,
+.nav-row-list,
 .dropdown-menu {
   list-style: none;
   margin: 0;
@@ -269,12 +282,30 @@ const scrollToSection = (sectionId, fallbackId) => {
 }
 
 .nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-row {
+  display: block;
+}
+
+.nav-row-list {
   display: grid;
   grid-template-columns: repeat(4, max-content);
   align-items: center;
   justify-content: center;
-  row-gap: 16px;
-  column-gap: clamp(34px, 4.4vw, 72px);
+}
+
+.nav-row--top .nav-row-list {
+  column-gap: clamp(30px, 4vw, 64px);
+}
+
+.nav-row--bottom .nav-row-list {
+  column-gap: clamp(42px, 5.1vw, 84px);
 }
 
 .nav-item {
@@ -439,10 +470,12 @@ const scrollToSection = (sectionId, fallbackId) => {
   }
 
   .main-nav {
+    position: static;
     grid-area: nav;
     display: none;
     justify-self: stretch;
     padding-top: 0;
+    transform: none;
   }
 
   .main-nav.is-open {
@@ -458,6 +491,15 @@ const scrollToSection = (sectionId, fallbackId) => {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     background: rgba(9, 10, 10, 0.96);
+  }
+
+  .nav-row-list,
+  .nav-row--top .nav-row-list,
+  .nav-row--bottom .nav-row-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .nav-link {
