@@ -10,6 +10,7 @@ Do not change this workflow.
 
 Do not push to GitHub, create pull requests, create branches, or commit changes unless I explicitly ask for that.
 
+Do not build dist folder
 ## Preferred output format
 
 After making or proposing changes to Vue files, always provide the final result as full, paste-ready Vue files.

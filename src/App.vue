@@ -5,6 +5,7 @@
     <main>
       <About />
       <ImageSlider />
+      <QuietGallery />
       <Contact />
     </main>
     <Footer />
