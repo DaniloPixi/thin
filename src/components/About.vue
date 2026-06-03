@@ -20,6 +20,24 @@
               <img src="/images/editedMain.png" alt="A vibrant cocktail being garnished">
             </figure>
 
+            <section class="signature-story" aria-labelledby="signature-story-title">
+              <figure class="signature-story-image">
+                <img src="/images/about2.jpg" alt="Yu's Cottage signature dishes and cocktails">
+              </figure>
+
+              <div class="signature-story-copy">
+                <h2 id="signature-story-title">Signatures</h2>
+                <p>
+                  Unsere Signatures beinhalten Aromen aus der asiatischen Küche, um unsere Dim Sum
+                  perfekt zu begleiten.
+                </p>
+                <p>
+                  Originale Rezepte und Techniken aus der Hong Kong Küche entfalten ihre volle
+                  Wirkung bei uns
+                </p>
+              </div>
+            </section>
+
             <a href="https://widget.thefork.com/68d9a180-bdef-4ec4-9d71-dae00300ac64" target="_blank" class="book-table-btn">Book a Table</a>
           </div>
         </div>
@@ -232,6 +250,89 @@
     display: block;
 }
 
+.signature-story {
+  position: relative;
+  width: min(65vw, 920px);
+  max-width: calc(100vw - 30px);
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  text-align: left;
+}
+
+.signature-story-image {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
+}
+
+.signature-story-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(169, 138, 102, 0.24);
+  background: linear-gradient(90deg, rgba(12, 11, 9, 0.34), transparent 38%);
+  pointer-events: none;
+}
+
+.signature-story-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+}
+
+.signature-story-copy {
+  position: absolute;
+  top: 50%;
+  left: -16%;
+  width: clamp(16rem, 36%, 24rem);
+  padding: clamp(1.1rem, 2.4vw, 2rem);
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  background: linear-gradient(90deg, rgba(12, 11, 9, 0.88), rgba(12, 11, 9, 0.7) 68%, rgba(12, 11, 9, 0.2));
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-left: 1px solid rgba(169, 138, 102, 0.35);
+  box-shadow: 18px 0 36px rgba(12, 11, 9, 0.22);
+}
+
+.signature-story-copy h2 {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+  color: var(--secondary-color);
+  font-family: "Imagine Font", serif;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 8px rgba(169, 138, 102, 0.35);
+}
+
+.signature-story-copy h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44px;
+  height: 2px;
+  background: var(--primary-color);
+}
+
+.signature-story-copy p {
+  margin: 0;
+  color: var(--secondary-color);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(0.88rem, 1.12vw, 1rem);
+  line-height: 1.7;
+}
+
+.signature-story-copy p + p {
+  margin-top: 0.8rem;
+}
+
 .book-table-btn {
   margin-top: 40px;
   font-family: 'Imagine Font', serif;
@@ -280,6 +381,23 @@
     .image-1 {
         width: 110%;
     }
+
+    .signature-story {
+        width: min(100%, 42rem);
+    }
+
+    .signature-story-image img {
+        aspect-ratio: 4 / 5;
+    }
+
+    .signature-story-copy {
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 72%;
+        transform: none;
+    }
 }
 
 @media (max-width: 500px) {
@@ -301,6 +419,25 @@
 
     .image-1 {
         width: 100%;
+    }
+
+    .signature-story {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .signature-story-image img {
+        aspect-ratio: 3 / 4;
+    }
+
+    .signature-story-copy {
+        width: 82%;
+        padding: 1rem;
+    }
+
+    .signature-story-copy p {
+        font-size: 0.85rem;
+        line-height: 1.6;
     }
 }
 
